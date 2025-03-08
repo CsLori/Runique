@@ -6,12 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import cslori.runique.ui.theme.RuniqueTheme
+import com.cslori.core.presentation.designsystem.AnalyticsIcon
+import com.cslori.core.presentation.designsystem.RuniqueTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +21,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RuniqueTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    containerColor = MaterialTheme.colorScheme.background
+                ) { innerPadding ->
+                    Surface(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)) {
+                        Icon(imageVector = AnalyticsIcon, contentDescription = null)
+//                    Text("Hello", modifier = Modifier.padding(innerPadding))
+                    }
                 }
             }
         }
