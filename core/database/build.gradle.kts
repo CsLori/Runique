@@ -9,6 +9,10 @@ android {
 
 dependencies {
     implementation(libs.org.mongodb.bson)
+    implementation(libs.bundles.koin)
 
     implementation(projects.core.domain)
+    implementation(libs.androidx.monitor)
+    implementation(libs.androidx.junit.ktx)
+    androidTestImplementation(libs.junit.junit)
 }
