@@ -20,7 +20,8 @@ val DarkColorScheme = darkColorScheme(
     onPrimary = RuniqueBlack,
     onBackground = RuniqueWhite,
     onSurface = RuniqueWhite,
-    onSurfaceVariant = RuniqueGray
+    onSurfaceVariant = RuniqueGray,
+    error = RuniqueDarkRed
 )
 
 @Composable
@@ -29,7 +30,7 @@ fun RuniqueTheme(
 ) {
     val colorScheme = DarkColorScheme
     val view = LocalView.current
-    if(!view.isInEditMode) {
+    if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()

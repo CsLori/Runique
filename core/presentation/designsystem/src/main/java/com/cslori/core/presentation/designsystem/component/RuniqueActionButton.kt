@@ -129,7 +129,7 @@ private fun RuniqueActionButtonDisabledPreview() {
     }
 }
 
-@Preview(backgroundColor =)
+@Preview
 @Composable
 private fun RuniqueOutlinedButtonEnabledPreview() {
     RuniqueTheme {
