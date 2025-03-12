@@ -11,7 +11,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.cslori.core.presentation.designsystem.AnalyticsIcon
 import com.cslori.core.presentation.designsystem.RuniqueTheme
 
@@ -26,11 +28,13 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     containerColor = MaterialTheme.colorScheme.background
                 ) { innerPadding ->
-                    Surface(modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)) {
-                        Icon(imageVector = AnalyticsIcon, contentDescription = null)
-//                    Text("Hello", modifier = Modifier.padding(innerPadding))
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    ) {
+                        val navController = rememberNavController()
+                        NavigationRoot(navController)
                     }
                 }
             }

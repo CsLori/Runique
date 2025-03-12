@@ -188,21 +188,21 @@ private fun RegisterScreen(
                 text = stringResource(
                     R.string.at_least_one_number,
                 ),
-                isValid = state.passwordValidationState.hasMinLength,
+                isValid = state.passwordValidationState.hasNumber,
             )
             Spacer(Modifier.height(4.dp))
             PasswordRequirement(
                 text = stringResource(
                     R.string.contains_lowercase_character,
                 ),
-                isValid = state.passwordValidationState.hasMinLength,
+                isValid = state.passwordValidationState.hasLowerCaseCharacter,
             )
             Spacer(Modifier.height(4.dp))
             PasswordRequirement(
                 text = stringResource(
                     R.string.contains_uppercase_character,
                 ),
-                isValid = state.passwordValidationState.hasMinLength,
+                isValid = state.passwordValidationState.hasUpperCaseCharacter,
             )
             Spacer(Modifier.height(32.dp))
             RuniqueActionButton(

@@ -25,7 +25,7 @@ import com.cslori.core.presentation.designsystem.component.RuniqueActionButton
 import com.cslori.core.presentation.designsystem.component.RuniqueOutlinedActionButton
 
 @Composable
-internal fun IntroScreenRoot(
+fun IntroScreenRoot(
     onSignUpClick: () -> Unit,
     onSignInClick: () -> Unit,
 ) {
@@ -84,7 +84,7 @@ private fun IntroScreen(onAction: (IntroAction) -> Unit) {
 }
 
 @Composable
-fun RuniqueLogoVertical(modifier: Modifier = Modifier) {
+private fun RuniqueLogoVertical(modifier: Modifier = Modifier) {
     Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Icon(
             imageVector = LogoIcon,
@@ -103,7 +103,7 @@ fun RuniqueLogoVertical(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun IntroScreenPreview() {
+private fun IntroScreenPreview() {
     RuniqueTheme {
         IntroScreen(onAction = {})
     }
