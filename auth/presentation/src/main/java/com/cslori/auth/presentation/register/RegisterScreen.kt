@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
@@ -22,11 +23,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -83,41 +87,71 @@ private fun RegisterScreen(
                 style = MaterialTheme.typography.headlineMedium,
                 color = RuniqueWhite
             )
+//            val annotatedString = buildAnnotatedString {
+//                withStyle(
+//                    style = SpanStyle(
+//                        fontFamily = Poppins,
+//                        color = RuniqueGray
+//                    )
+//                ) {
+//                    append(stringResource(R.string.already_have_an_account) + " ")
+//                }
+//                pushStringAnnotation(
+//                    tag = "clickable_text",
+//                    annotation = stringResource(R.string.login)
+//                )
+//                withStyle(
+//                    style = SpanStyle(
+//                        fontWeight = FontWeight.SemiBold,
+//                        color = MaterialTheme.colorScheme.primary,
+//                        fontFamily = Poppins,
+//                    )
+//                ) {
+//                    append(stringResource(R.string.login))
+//                }
+//            }
+
             val annotatedString = buildAnnotatedString {
                 withStyle(
                     style = SpanStyle(
                         fontFamily = Poppins,
-                        color = RuniqueGray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 ) {
                     append(stringResource(R.string.already_have_an_account) + " ")
                 }
-                pushStringAnnotation(
-                    tag = "clickable_text",
-                    annotation = stringResource(R.string.login)
-                )
-                withStyle(
-                    style = SpanStyle(
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontFamily = Poppins,
-                    )
+                withLink(
+                    link = LinkAnnotation
+                        .Clickable(
+                            tag = stringResource(R.string.login),
+                            styles = TextLinkStyles(
+                                style = SpanStyle(
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontFamily = Poppins
+                                )
+                            ),
+                            linkInteractionListener = {
+                                onAction(RegisterAction.OnRegisterClick)
+                            }
+                        )
                 ) {
                     append(stringResource(R.string.login))
                 }
             }
 
-            ClickableText(
-                text = annotatedString,
-                onClick = { offset ->
-                    annotatedString.getStringAnnotations(
-                        tag = "clickable_text",
-                        start = offset,
-                        end = offset
-                    ).firstOrNull()?.let {
-                        onAction(RegisterAction.OnLoginClick)
-                    }
-                })
+            BasicText(annotatedString)
+//            ClickableText(
+//                text = annotatedString,
+//                onClick = { offset ->
+//                    annotatedString.getStringAnnotations(
+//                        tag = "clickable_text",
+//                        start = offset,
+//                        end = offset
+//                    ).firstOrNull()?.let {
+//                        onAction(RegisterAction.OnLoginClick)
+//                    }
+//                })
 
             Spacer(Modifier.height(48.dp))
             RuniqueTextField(
