@@ -1,5 +1,6 @@
 package com.cslori.auth.presentation.register
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -35,7 +38,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cslori.auth.domain.PasswordValidationState
 import com.cslori.auth.domain.UserDataValidator
 import com.cslori.auth.presentation.R
 import com.cslori.core.presentation.designsystem.CheckIcon
@@ -51,6 +53,7 @@ import com.cslori.core.presentation.designsystem.component.GradientBackground
 import com.cslori.core.presentation.designsystem.component.RuniqueActionButton
 import com.cslori.core.presentation.designsystem.component.RuniquePasswordTextField
 import com.cslori.core.presentation.designsystem.component.RuniqueTextField
+import com.cslori.presentation.ui.ObserveAsEvent
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -59,6 +62,30 @@ fun RegisterScreenRoot(
     onSuccessfulRegistration: () -> Unit,
     viewModel: RegisterViewmodel = koinViewModel()
 ) {
+    val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    ObserveAsEvent(flow = viewModel.events) { event ->
+        when (event) {
+            is RegisterEvent.RegistrationSuccess -> {
+                keyboardController?.hide()
+                Toast.makeText(
+                    context,
+                    R.string.registration_successful,
+                    Toast.LENGTH_LONG
+                ).show()
+                onSuccessfulRegistration()
+            }
+            is RegisterEvent.Error -> {
+                keyboardController?.hide()
+                Toast.makeText(
+                    context,
+                    event.error.asString(context),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
     RegisterScreen(
         state = viewModel.state,
         onAction = viewModel::onAction

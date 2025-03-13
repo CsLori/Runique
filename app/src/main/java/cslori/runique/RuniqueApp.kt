@@ -3,6 +3,7 @@ package cslori.runique
 import android.app.Application
 import com.cslori.auth.data.di.authDataModule
 import com.cslori.auth.presentation.di.authViewModelModule
+import com.cslori.core.data.di.coreDataModule
 import cslori.runique.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -19,7 +20,7 @@ class RuniqueApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@RuniqueApp)
-            modules(listOf(appModule, authDataModule, authViewModelModule))
+            modules(listOf(appModule, authDataModule, authViewModelModule, coreDataModule))
         }
     }
 }
