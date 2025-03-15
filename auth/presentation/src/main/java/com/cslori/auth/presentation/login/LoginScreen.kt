@@ -22,6 +22,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,17 +48,17 @@ fun LoginScreenRoot(
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     ObserveAsEvent(viewModel.eventChannel) { event ->
-        when(event) {
-            is LoginEvents.Error -> {
+        when (event) {
+            is LoginEvent.Error -> {
                 keyboardController?.hide()
                 Toast.makeText(
                     context,
                     event.error.asString(context),
                     Toast.LENGTH_LONG
-
                 ).show()
             }
-            LoginEvents.LoginSuccess -> {
+
+            LoginEvent.LoginSuccess -> {
                 keyboardController?.hide()
                 Toast.makeText(
                     context,
@@ -73,7 +74,7 @@ fun LoginScreenRoot(
     LoginScreenRootScreen(
         state = viewModel.state,
         onAction = { action ->
-            when(action) {
+            when (action) {
                 LoginAction.OnRegisterClick -> onSignupClick()
                 else -> Unit
             }
@@ -113,6 +114,7 @@ private fun LoginScreenRootScreen(
                 state = state.email,
                 startIcon = EmailIcon,
                 endIcon = null,
+                keyboardType = KeyboardType.Email,
                 hint = stringResource(R.string.example_email),
                 title = stringResource(R.string.email),
                 modifier = Modifier.fillMaxWidth()
@@ -133,7 +135,7 @@ private fun LoginScreenRootScreen(
             RuniqueActionButton(
                 text = stringResource(R.string.login),
                 isLoading = state.isLoggingIn,
-                enabled = state.canLogin,
+                enabled = state.canLogin && !state.isLoggingIn,
                 onClick = {
                     onAction(LoginAction.OnLoginClick)
                 }
