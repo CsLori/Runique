@@ -86,7 +86,13 @@ fun RegisterScreenRoot(
     }
     RegisterScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when (action) {
+                RegisterAction.OnLoginClick -> onSignInClick()
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 
@@ -157,7 +163,7 @@ private fun RegisterScreen(
                                 )
                             ),
                             linkInteractionListener = {
-                                onAction(RegisterAction.OnRegisterClick)
+                                onAction(RegisterAction.OnLoginClick)
                             }
                         )
                 ) {

@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.cslori.auth.presentation.intro.IntroScreenRoot
+import com.cslori.auth.presentation.login.LoginScreenRoot
 import com.cslori.auth.presentation.register.RegisterScreenRoot
 
 @Composable
@@ -53,7 +54,25 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
             )
         }
         composable(route = "login") {
-            Text("Login")
+            LoginScreenRoot(
+                onLoginSuccess = {
+                    navController.navigate("run") {
+                        popUpTo("auth") {
+                            inclusive = true
+                        }
+                    }
+                },
+                onSignupClick = {
+                    navController.navigate("register") {
+                        popUpTo("login") {
+                            inclusive = true
+                            saveState = true
+                        }
+                        restoreState = true
+
+                    }
+                }
+            )
         }
     }
 }
