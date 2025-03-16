@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val authRepository: AuthRepository,
-    userDataValidator: UserDataValidator
+    private val userDataValidator: UserDataValidator
 ) : ViewModel() {
     var state by mutableStateOf(LoginState())
         private set
@@ -65,6 +65,9 @@ class LoginViewModel(
                 password = state.password.text.toString()
             )
 
+            state = state.copy(
+                isLoggingIn = false
+            )
             when (result) {
                 is Result.Error -> {
                     if (result.error == DataError.Network.UNAUTHORIZED) {
@@ -83,9 +86,6 @@ class LoginViewModel(
                 }
             }
 
-            state = state.copy(
-                isLoggingIn = false
-            )
         }
     }
 }
