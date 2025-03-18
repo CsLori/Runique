@@ -8,6 +8,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.bundles.koin.compose)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
