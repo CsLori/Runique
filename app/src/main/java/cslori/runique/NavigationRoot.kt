@@ -88,7 +88,6 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         composable(route = "run_overview") {
             RunOverViewScreenRoot(
                 onStartRunClick = {
-                    Timber.d("DDD - Clicked Start Run")
                     navController.navigate("active_run")
                 }
             )

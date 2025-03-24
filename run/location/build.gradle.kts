@@ -10,6 +10,8 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
 
+    implementation(libs.bundles.koin)
+
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.graphics)
