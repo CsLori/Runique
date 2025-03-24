@@ -3,7 +3,6 @@
 package com.cslori.run.presentation.run_overview
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -30,11 +29,18 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RunOverViewScreenRoot(
+    onStartRunClick: () -> Unit,
     viewModel: RunOverViewViewModel = koinViewModel()
 ) {
     RunOverViewScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when (action) {
+                is RunOverViewAction.OnStartClick -> onStartRunClick()
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 

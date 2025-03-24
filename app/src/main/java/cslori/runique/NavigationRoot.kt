@@ -10,7 +10,9 @@ import androidx.navigation.compose.navigation
 import com.cslori.auth.presentation.intro.IntroScreenRoot
 import com.cslori.auth.presentation.login.LoginScreenRoot
 import com.cslori.auth.presentation.register.RegisterScreenRoot
+import com.cslori.run.presentation.active_run.ActiveRunScreenRoot
 import com.cslori.run.presentation.run_overview.RunOverViewScreenRoot
+import timber.log.Timber
 
 @Composable
 fun NavigationRoot(navController: NavHostController, isLoggedIn: Boolean) {
@@ -84,7 +86,15 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         route = "run"
     ) {
         composable(route = "run_overview") {
-            RunOverViewScreenRoot()
+            RunOverViewScreenRoot(
+                onStartRunClick = {
+                    Timber.d("DDD - Clicked Start Run")
+                    navController.navigate("active_run")
+                }
+            )
+        }
+        composable(route = "active_run") {
+            ActiveRunScreenRoot()
         }
     }
 }

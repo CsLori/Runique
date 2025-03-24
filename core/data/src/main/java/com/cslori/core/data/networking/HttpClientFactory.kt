@@ -30,6 +30,7 @@ class HttpClientFactory(
             install(ContentNegotiation) {
                 json(
                     json = Json {
+                        prettyPrint = true
                         ignoreUnknownKeys = true
                     }
                 )
