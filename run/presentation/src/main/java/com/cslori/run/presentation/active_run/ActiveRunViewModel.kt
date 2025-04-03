@@ -3,16 +3,18 @@ package com.cslori.run.presentation.active_run
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cslori.run.domain.RunningTracker
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
-import timber.log.Timber
+import kotlinx.coroutines.flow.stateIn
 
 class ActiveRunViewModel(
     private val runningTracker: RunningTracker
@@ -23,11 +25,20 @@ class ActiveRunViewModel(
     private val eventChannel = Channel<ActiveRunEvent>()
     val events = eventChannel.receiveAsFlow()
 
-    private val _hasLocationPermission = MutableStateFlow(false)
-    val hasLocationPermission = _hasLocationPermission.asStateFlow()
+    //composeState to flow then to stateFlow
+    private val shouldTrack = snapshotFlow { state.shouldTrack }
+        .stateIn(viewModelScope, SharingStarted.Lazily, state.shouldTrack)
+    private val hasLocationPermission = MutableStateFlow(false)
+
+    private val isTracking = combine(
+        shouldTrack,
+        hasLocationPermission
+    ) { shouldTrack, hasLocationPermission ->
+        shouldTrack && hasLocationPermission
+    }.stateIn(viewModelScope, SharingStarted.Lazily, false)
 
     init {
-        _hasLocationPermission
+        hasLocationPermission
             .onEach { hasPermission ->
                 if (hasPermission) {
                     runningTracker.startObservingLocation()
@@ -36,18 +47,51 @@ class ActiveRunViewModel(
                 }
             }.launchIn(viewModelScope)
 
-        runningTracker.currentLocation.onEach { location ->
-            Timber.d("DDD - New location: $location")
+        isTracking.onEach { isTracking ->
+            runningTracker.setIsTracking(isTracking)
         }.launchIn(viewModelScope)
+
+        //combine all the related data so we can listen to them
+        snapshotFlow {
+            combine(
+                runningTracker.runData,
+                runningTracker.elapsedTime,
+                runningTracker.currentLocation
+            ) { runData, elapsedTime, currentLocation ->
+                //combine only create a new object so
+                //onEach is needed for actual state update
+                state.copy(
+                    runData = runData,
+                    elapsedTime = elapsedTime,
+                    currentLocation = currentLocation?.location
+                )
+            }.onEach { newState ->
+                state = newState
+            }.launchIn(viewModelScope)
+        }
     }
 
     fun onAction(action: ActiveRunAction) {
         when (action) {
             ActiveRunAction.OnFinishRunClick -> {}
-            ActiveRunAction.OnResumeRunClick -> {}
-            ActiveRunAction.OnToggleRunClick -> {}
+            ActiveRunAction.OnResumeRunClick -> {
+                state = state.copy(
+                    shouldTrack = true
+                )
+            }
+            ActiveRunAction.OnBackClick -> {
+                state = state.copy(
+                    shouldTrack = false
+                )
+            }
+            ActiveRunAction.OnToggleRunClick -> {
+                state = state.copy(
+                    hasStartedRunning = true,
+                    shouldTrack = !state.shouldTrack
+                )
+            }
             is ActiveRunAction.SubmitLocationPermissionInfo -> {
-                _hasLocationPermission.value = action.acceptedLocationPermission
+                hasLocationPermission.value = action.acceptedLocationPermission
                 state = state.copy(
                     showLocationRationale = action.showLocationRationale
                 )

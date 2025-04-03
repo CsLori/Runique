@@ -48,6 +48,7 @@ class RunningTracker(
         )
 
     init {
+        @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
         isTracking
             .flatMapLatest { isTracking ->
                 if (isTracking) {
@@ -92,7 +93,6 @@ class RunningTracker(
                 } else {
                     (currentDuration.inWholeSeconds / distanceKm).roundToInt()
                 }
-
                 _runData.update {
                     RunData(
                         distanceMeters = distanceMeters,

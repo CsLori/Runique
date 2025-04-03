@@ -71,7 +71,7 @@ fun LoginScreenRoot(
         }
     }
 
-    LoginScreenRootScreen(
+    LoginScreen(
         state = viewModel.state,
         onAction = { action ->
             when (action) {
@@ -84,7 +84,7 @@ fun LoginScreenRoot(
 }
 
 @Composable
-private fun LoginScreenRootScreen(
+private fun LoginScreen(
     state: LoginState,
     onAction: (LoginAction) -> Unit
 ) {
@@ -184,9 +184,9 @@ private fun LoginScreenRootScreen(
 
 @Preview
 @Composable
-private fun LoginScreenRootScreenPreview() {
+private fun LoginScreenPreview() {
     RuniqueTheme {
-        LoginScreenRootScreen(
+        LoginScreen(
             state = LoginState(),
             onAction = {}
         )
