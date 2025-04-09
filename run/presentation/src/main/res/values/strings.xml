@@ -14,4 +14,8 @@
     <string name="pace">Pace</string>
     <string name="permission_required">Permission required</string>
     <string name="ok">Ok</string>
+    <string name="running_is_paused">Running is paused</string>
+    <string name="resume_or_finish_run">Do you want to resume or finish the workout?</string>
+    <string name="finish">Finish</string>
+    <string name="resume">Resume</string>
 </resources>

@@ -37,17 +37,19 @@ fun RuniqueActionButton(
     onClick: () -> Unit
 ) {
     Button(
-        onClick = onClick, enabled = enabled, colors = ButtonDefaults.buttonColors(
+        onClick = onClick,
+        enabled = enabled,
+        colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
             disabledContainerColor = RuniqueGray,
             disabledContentColor = RuniqueBlack
 
         ), shape = RoundedCornerShape(100f),
-        modifier = Modifier.height(IntrinsicSize.Min)
+        modifier = modifier.height(IntrinsicSize.Min)
     ) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
             contentAlignment = Alignment.Center
@@ -79,16 +81,18 @@ fun RuniqueOutlinedActionButton(
     onClick: () -> Unit
 ) {
     OutlinedButton(
-        onClick = onClick, enabled = enabled, colors = ButtonDefaults.outlinedButtonColors(
+        onClick = onClick,
+        enabled = enabled,
+        colors = ButtonDefaults.outlinedButtonColors(
             contentColor = MaterialTheme.colorScheme.onBackground,
 
             ), border = BorderStroke(
             width = 0.3.dp, color = MaterialTheme.colorScheme.onBackground
         ), shape = RoundedCornerShape(100f),
-        modifier = Modifier.height(IntrinsicSize.Min)
+        modifier = modifier.height(IntrinsicSize.Min)
     ) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
             contentAlignment = Alignment.Center

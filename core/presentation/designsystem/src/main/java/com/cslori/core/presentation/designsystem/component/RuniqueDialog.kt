@@ -25,9 +25,9 @@ fun RuniqueDialog(
     title: String,
     description: String,
     onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
     primaryButton: @Composable RowScope.() -> Unit,
     secondaryButton: @Composable RowScope.() -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     Dialog(
         onDismissRequest = onDismiss
@@ -53,8 +53,9 @@ fun RuniqueDialog(
                 color = MaterialTheme.colorScheme.onSurface,
             )
             Row(
-                modifier = modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 secondaryButton()
                 primaryButton()
