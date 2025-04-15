@@ -5,4 +5,13 @@
     <string name="go_back">Go back</string>
     <string name="open_menu">Open menu</string>
     <string name="active_run">Active run</string>
+    <string name="run_map">Run map</string>
+    <string name="error_couldnt_load_image">Couldn\'t load image</string>
+    <string name="total_running_time">Total running time</string>
+    <string name="distance">Distance</string>
+    <string name="pace">Pace</string>
+    <string name="avg_speed">Ø speed</string>
+    <string name="max_speed">Max speed</string>
+    <string name="total_elevation">Total elevation</string>
+    <string name="delete">Delete</string>
 </resources>
