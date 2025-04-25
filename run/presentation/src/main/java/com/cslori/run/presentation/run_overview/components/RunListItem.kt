@@ -46,7 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
-import com.cslori.core.domain.Run
+import com.cslori.core.domain.run.Run
 import com.cslori.core.domain.location.Location
 import com.cslori.core.presentation.designsystem.CalendarIcon
 import com.cslori.core.presentation.designsystem.R
@@ -293,7 +293,7 @@ private fun RunListItemPreview() {
                 duration = 10.minutes + 30.seconds,
                 dateTimeUtc = ZonedDateTime.now(),
                 distanceMeters = 12323,
-                locations = Location(0.0, 0.0),
+                location = Location(0.0, 0.0),
                 maxSpeedKmh = 10.0,
                 totalElevationMeters = 123,
                 mapPictureUrl = null,

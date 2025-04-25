@@ -2,10 +2,12 @@ package com.cslori.run.presentation.active_run.maps
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import com.cslori.core.domain.location.LocationTimestamp
 import com.google.android.gms.maps.model.JointType
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.Polyline
+import timber.log.Timber
 
 @Composable
 fun RuniquePolyLines(locations: List<List<LocationTimestamp>>) {
@@ -15,7 +17,7 @@ fun RuniquePolyLines(locations: List<List<LocationTimestamp>>) {
                 PolyLineUi(
                     location1 = timeStamp1.location.location,
                     location2 = timeStamp2.location.location,
-                    color = PolyLineCalculator.locationsToColor(
+                    color = PolylineColorCalculator.locationsToColor(
                         location1 = timeStamp1,
                         location2 = timeStamp2
                     )
@@ -26,6 +28,7 @@ fun RuniquePolyLines(locations: List<List<LocationTimestamp>>) {
 
     polyLines.forEach { polyLine ->
         polyLine.forEach { polyLineUi ->
+            Timber.d("PolyLineUi: ${polyLineUi.color}")
             Polyline(
                 points = listOf(
                     LatLng(polyLineUi.location1.lat, polyLineUi.location1.long),

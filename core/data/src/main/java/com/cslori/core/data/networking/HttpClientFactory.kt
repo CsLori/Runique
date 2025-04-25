@@ -18,6 +18,7 @@ import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 
@@ -25,6 +26,7 @@ class HttpClientFactory(
     private val sessionStorage: SessionStorage
 ) {
 
+    @OptIn(InternalSerializationApi::class)
     fun build(): HttpClient {
         return HttpClient(CIO) {
             install(ContentNegotiation) {

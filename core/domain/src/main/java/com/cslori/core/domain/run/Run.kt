@@ -1,4 +1,4 @@
-package com.cslori.core.domain
+package com.cslori.core.domain.run
 
 import com.cslori.core.domain.location.Location
 import java.time.ZonedDateTime
@@ -10,7 +10,7 @@ data class Run(
     val duration: Duration,
     val dateTimeUtc: ZonedDateTime,
     val distanceMeters: Int,
-    val locations: Location,
+    val location: Location,
     val maxSpeedKmh: Double,
     val totalElevationMeters: Int,
     val mapPictureUrl: String?,

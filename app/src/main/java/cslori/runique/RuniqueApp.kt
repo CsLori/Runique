@@ -4,7 +4,9 @@ import android.app.Application
 import com.cslori.auth.data.di.authDataModule
 import com.cslori.auth.presentation.di.authViewModelModule
 import com.cslori.core.data.di.coreDataModule
+import com.cslori.core.database.di.databaseModule
 import com.cslori.run.location.di.locationModule
+import com.cslori.run.network.di.networkModule
 import com.cslori.run.presentation.di.runPresentationModule
 import cslori.runique.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +36,9 @@ class RuniqueApp : Application() {
                     authViewModelModule,
                     coreDataModule,
                     runPresentationModule,
-                    locationModule
+                    locationModule,
+                    databaseModule,
+                    networkModule
                 )
             )
         }

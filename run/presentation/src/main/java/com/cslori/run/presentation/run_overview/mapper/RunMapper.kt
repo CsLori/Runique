@@ -1,6 +1,6 @@
 package com.cslori.run.presentation.run_overview.mapper
 
-import com.cslori.core.domain.Run
+import com.cslori.core.domain.run.Run
 import com.cslori.presentation.ui.formatted
 import com.cslori.presentation.ui.toFormattedKm
 import com.cslori.presentation.ui.toFormattedKmH

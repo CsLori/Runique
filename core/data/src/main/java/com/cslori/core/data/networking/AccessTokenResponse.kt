@@ -1,9 +1,10 @@
 package com.cslori.core.data.networking
 
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 
-@Serializable
+@InternalSerializationApi @Serializable
 data class AccessTokenResponse(
     val accessToken: String,
-    val expirationTimeStamp: Long
+    val expirationTimestamp: Long
 )
