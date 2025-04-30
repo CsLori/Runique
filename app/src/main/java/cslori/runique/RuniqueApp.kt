@@ -5,6 +5,7 @@ import com.cslori.auth.data.di.authDataModule
 import com.cslori.auth.presentation.di.authViewModelModule
 import com.cslori.core.data.di.coreDataModule
 import com.cslori.core.database.di.databaseModule
+import com.cslori.run.di.runDataModule
 import com.cslori.run.location.di.locationModule
 import com.cslori.run.network.di.networkModule
 import com.cslori.run.presentation.di.runPresentationModule
@@ -13,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
@@ -29,6 +31,7 @@ class RuniqueApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@RuniqueApp)
+            workManagerFactory()
             modules(
                 listOf(
                     appModule,
@@ -38,7 +41,8 @@ class RuniqueApp : Application() {
                     runPresentationModule,
                     locationModule,
                     databaseModule,
-                    networkModule
+                    networkModule,
+                    runDataModule
                 )
             )
         }
