@@ -1,8 +1,6 @@
 package com.cslori.core.presentation.designsystem.component
 
-import android.graphics.Color
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -119,7 +118,12 @@ fun RuniqueOutlinedActionButton(
 @Composable
 private fun RuniqueActionButtonEnabledPreview() {
     RuniqueTheme {
-        RuniqueActionButton(text = "Sign Up", isLoading = false, onClick = {}, enabled = true)
+        RuniqueActionButton(
+            text = "Sign Up",
+            isLoading = false,
+            onClick = {},
+            enabled = true
+        )
 
     }
 }
@@ -128,7 +132,12 @@ private fun RuniqueActionButtonEnabledPreview() {
 @Composable
 private fun RuniqueActionButtonDisabledPreview() {
     RuniqueTheme {
-        RuniqueActionButton(text = "Sign Up", isLoading = false, onClick = {}, enabled = false)
+        RuniqueActionButton(
+            text = "Sign Up",
+            isLoading = false,
+            onClick = {},
+            enabled = false
+        )
 
     }
 }

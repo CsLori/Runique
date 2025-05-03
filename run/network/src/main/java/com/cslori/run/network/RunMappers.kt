@@ -12,7 +12,7 @@ import kotlin.time.Duration.Companion.milliseconds
 fun RunDto.toRun(): Run {
     return Run(
         id = id,
-        duration = duration.milliseconds,
+        duration = durationMillis.milliseconds,
         dateTimeUtc = Instant.parse(dateTimeUtc).atZone(ZoneId.of("UTC")),
         distanceMeters = distanceMeters,
         location = Location(

@@ -137,11 +137,11 @@ fun TrackerMap(
                 val boundsBuilder = LatLngBounds.builder()
                 locations.flatten().forEach { location ->
                     boundsBuilder.include(
-                        LatLng(
-                            location.location.location.lat,
-                            location.location.location.long
+                            LatLng(
+                                location.location.location.lat,
+                                location.location.location.long
+                            )
                         )
-                    )
                 }
                 map.moveCamera(
                     CameraUpdateFactory.newLatLngBounds(
@@ -158,7 +158,6 @@ fun TrackerMap(
                     }
                 }
             }
-            val bmp = map.awaitSnapshot()
         }
 
         if (!isRunFinished && currentLocation != null) {

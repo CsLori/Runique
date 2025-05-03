@@ -133,9 +133,7 @@ class RunningTracker(
         stopObservingLocation()
         setIsTracking(false)
         _elapsedTime.value = Duration.ZERO
-        _runData.update {
-            RunData()
-        }
+        _runData.value = RunData()
     }
 }
 

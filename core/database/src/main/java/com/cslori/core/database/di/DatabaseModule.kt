@@ -1,6 +1,7 @@
 package com.cslori.core.database.di
 
 import androidx.room.Room
+import com.cslori.core.database.MIGRATION_1_2
 import com.cslori.core.database.RoomLocalRunDataSource
 import com.cslori.core.database.RunDatabase
 import com.cslori.core.domain.run.LocalRunDataSource
@@ -14,7 +15,9 @@ val databaseModule = module {
         Room.databaseBuilder(
             androidApplication(),
             RunDatabase::class.java, "run.db"
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
     single { get<RunDatabase>().runDao }
     single { get<RunDatabase>().runPendingSyncDao }

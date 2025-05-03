@@ -6,7 +6,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,7 +43,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.cslori.core.domain.run.Run
 import com.cslori.core.domain.location.Location
@@ -52,7 +50,6 @@ import com.cslori.core.presentation.designsystem.CalendarIcon
 import com.cslori.core.presentation.designsystem.R
 import com.cslori.core.presentation.designsystem.RunOutlinedIcon
 import com.cslori.core.presentation.designsystem.RuniqueTheme
-import com.cslori.core.presentation.designsystem.component.util.DropDownItem
 import com.cslori.run.presentation.run_overview.mapper.toRunUi
 import com.cslori.run.presentation.run_overview.model.RunDataUi
 import com.cslori.run.presentation.run_overview.model.RunUi
