@@ -1,6 +1,7 @@
 package cslori.runique
 
 import android.app.Application
+import android.content.Context
 import com.cslori.auth.data.di.authDataModule
 import com.cslori.auth.presentation.di.authViewModelModule
 import com.cslori.core.data.di.coreDataModule
@@ -9,6 +10,7 @@ import com.cslori.run.di.runDataModule
 import com.cslori.run.location.di.locationModule
 import com.cslori.run.network.di.networkModule
 import com.cslori.run.presentation.di.runPresentationModule
+import com.google.android.play.core.splitcompat.SplitCompat
 import cslori.runique.di.appModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -42,9 +44,14 @@ class RuniqueApp : Application() {
                     locationModule,
                     databaseModule,
                     networkModule,
-                    runDataModule
+                    runDataModule,
                 )
             )
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        SplitCompat.installActivity(this)
     }
 }

@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.cslori.core.database.dao.AnalyticsDao
 import com.cslori.core.database.dao.RunDao
 import com.cslori.core.database.dao.RunPendingSyncDao
 import com.cslori.core.database.entity.DeletedRunSyncEntity
@@ -19,6 +20,7 @@ abstract class RunDatabase : RoomDatabase() {
 
     abstract val runDao: RunDao
     abstract val runPendingSyncDao: RunPendingSyncDao
+    abstract val analyticsDao: AnalyticsDao
 }
 
 val MIGRATION_1_2 = object : Migration(1, 2) {

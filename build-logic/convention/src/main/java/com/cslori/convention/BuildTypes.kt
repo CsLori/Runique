@@ -3,6 +3,7 @@ package com.cslori.convention
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.DynamicFeatureExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.gradle.api.Project
@@ -25,7 +26,7 @@ internal fun Project.configureBuildTypes(
             extensions.configure<LibraryExtension> {
                 buildTypes {
                     release {
-                        configureReleaseBuildType(commonExtension, apiKey)
+                        configureReleaseBuildType(commonExtension, apiKey, allowMinification = false)
                     }
                     debug {
                         configureDebugBuildType(apiKey)
@@ -38,7 +39,20 @@ internal fun Project.configureBuildTypes(
             extensions.configure<ApplicationExtension> {
                 buildTypes {
                     release {
-                        configureReleaseBuildType(commonExtension, apiKey)
+                        configureReleaseBuildType(commonExtension, apiKey, allowMinification = true)
+
+                    }
+                    debug {
+                        configureDebugBuildType(apiKey)
+                    }
+                }
+            }
+        }
+        ExtensionType.DYNAMIC_FEATURE -> {
+            extensions.configure<DynamicFeatureExtension> {
+                buildTypes {
+                    release {
+                        configureReleaseBuildType(commonExtension, apiKey, allowMinification = false)
 
                     }
                     debug {
@@ -57,14 +71,17 @@ private fun BuildType.configureDebugBuildType(apiKey: String) {
 
 private fun BuildType.configureReleaseBuildType(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
-    apiKey: String
+    apiKey: String,
+    allowMinification: Boolean = true
 ) {
     buildConfigField("String", "API_KEY", "\"$apiKey\"")
     buildConfigField("String", "BASE_URL", "\"https://runique.pl-coding.com:8080\"")
 
-    isMinifyEnabled = true
-    proguardFiles(
-        commonExtension.getDefaultProguardFile("proguard-android-optimize.txt"),
-        "proguard-rules.pro"
-    )
+    if (allowMinification) {
+        isMinifyEnabled = true
+        proguardFiles(
+            commonExtension.getDefaultProguardFile("proguard-android-optimize.txt"),
+            "proguard-rules.pro"
+        )
+    }
 }

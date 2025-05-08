@@ -14,5 +14,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(libs.androidx.monitor)
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.kotlinx.coroutines.core)
+
     androidTestImplementation(libs.junit.junit)
 }
