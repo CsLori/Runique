@@ -11,6 +11,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://company/com/maven2")
+        }
     }
 }
 gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
@@ -35,3 +38,4 @@ include(":analytics:data")
 include(":analytics:domain")
 include(":analytics:presentation")
 include(":analytics:analytics_feature")
+include(":runiquewearwear:app")

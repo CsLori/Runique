@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import com.cslori.core.domain.util.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.authProviders
 import io.ktor.client.plugins.auth.providers.BearerAuthProvider
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.plugin
@@ -25,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.text.get
 
 class OfflineFirstRunRepository(
     private val localRunDataSource: LocalRunDataSource,
@@ -158,7 +160,7 @@ class OfflineFirstRunRepository(
             route = "/logout"
         ).asEmptyResult()
 
-        client.plugin(Auth).providers.filterIsInstance<BearerAuthProvider>()
+        client.authProviders.filterIsInstance<BearerAuthProvider>()
             .firstOrNull()
             ?.clearToken()
 

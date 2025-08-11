@@ -14,6 +14,7 @@ import com.cslori.core.domain.util.Result
 import com.cslori.presentation.ui.UiText
 import com.cslori.presentation.ui.asUiText
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -30,24 +31,16 @@ class RegisterViewmodel(
     val events = eventChannel.receiveAsFlow()
 
     init {
-        state.email.run {
-            snapshotFlow { text }
-        }.onEach { email ->
+        combine(
+            snapshotFlow { state.email.text },
+            snapshotFlow { state.password.text }) { email, password ->
             val isValidEmail = userDataValidator.isValidEmail(email.toString())
+            val passwordValidationState =
+                userDataValidator.validatePassword(password.toString())
             state = state.copy(
                 isEmailValid = isValidEmail,
-                canRegister = isValidEmail && state.passwordValidationState.isValidPassword
-                        && !state.isRegistering,
-            )
-        }.launchIn(viewModelScope)
-
-        state.password.run {
-            snapshotFlow { text }
-        }.onEach { password ->
-            val passwordValidationState = userDataValidator.validatePassword(password.toString())
-            state = state.copy(
                 passwordValidationState = passwordValidationState,
-                canRegister = state.isEmailValid && passwordValidationState.isValidPassword
+                canRegister = isValidEmail && state.passwordValidationState.isValidPassword
                         && !state.isRegistering,
             )
         }.launchIn(viewModelScope)
@@ -61,6 +54,7 @@ class RegisterViewmodel(
                     isPasswordVisible = !state.isPasswordVisible
                 )
             }
+
             else -> Unit
         }
     }

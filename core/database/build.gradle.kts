@@ -15,6 +15,10 @@ dependencies {
     implementation(libs.androidx.monitor)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.kotlinx.coroutines.core)
+//    implementation(libs.mongodb.driver.sync)
+//    implementation(libs.mongodb.driver.kotlin.coroutine)
+
+
 
     androidTestImplementation(libs.junit.junit)
 }

@@ -47,10 +47,11 @@
             <option value="$PROJECT_DIR$/run/location" />
             <option value="$PROJECT_DIR$/run/network" />
             <option value="$PROJECT_DIR$/run/presentation" />
+            <option value="$PROJECT_DIR$/runiquewearwear" />
+            <option value="$PROJECT_DIR$/runiquewearwear/app" />
           </set>
         </option>
       </GradleProjectSettings>
     </option>
-    <option name="offlineMode" value="true" />
   </component>
 </project>
